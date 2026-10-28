@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iberomundo Viajes - Vuelos a Latinoamérica, Financiación Fliinow y Reserva Flexible</title>
-    <meta name="description" content="Encuentra las mejores ofertas de vuelos entre España y Latinoamérica con Iberomundo Viajes. Financia en 3, 6, 9 o 12 meses con Fliinow o reserva con pago inicial acorde a tu oferta.">
+    <title>Iberomundo Viajes USA - Vuelos a Latinoamérica, Financiación y Reserva Flexible</title>
+    <meta name="description" content="Encuentra las mejores ofertas de vuelos entre Estados Unidos y Latinoamérica con Iberomundo Viajes USA. Financia en 3, 6, 9 o 12 meses o reserva con cuota inicial para congelar tu tarifa.">
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -24,6 +24,11 @@
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif']
+                    },
+                    boxShadow: {
+                        'glow': '0 0 25px -5px rgba(249, 115, 22, 0.4)',
+                        'glow-whatsapp': '0 0 25px -5px rgba(37, 211, 102, 0.5)',
+                        'glass': '0 8px 32px 0 rgba(11, 37, 69, 0.37)'
                     }
                 }
             }
@@ -41,19 +46,21 @@
     <style>
         body { font-family: 'Inter', sans-serif; }
         .hero-bg {
-            background: linear-gradient(135deg, rgba(11, 37, 69, 0.92) 0%, rgba(19, 49, 92, 0.85) 60%, rgba(249, 115, 22, 0.4) 100%), 
+            background: linear-gradient(135deg, rgba(11, 37, 69, 0.94) 0%, rgba(19, 49, 92, 0.88) 60%, rgba(249, 115, 22, 0.35) 100%), 
                         url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=2000&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
         }
         .glass-card {
-            background: rgba(255, 255, 255, 0.96);
-            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.97);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
         }
         .glass-dark {
-            background: rgba(11, 37, 69, 0.85);
-            backdrop-filter: blur(12px);
+            background: rgba(11, 37, 69, 0.88);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
         }
         @keyframes ticker {
             0% { transform: translateX(100%); }
@@ -62,50 +69,116 @@
         .animate-ticker {
             display: inline-block;
             white-space: nowrap;
-            animation: ticker 30s linear infinite;
+            animation: ticker 32s linear infinite;
         }
         .animate-ticker:hover {
             animation-play-state: paused;
         }
+        /* Animación Avión Volador */
+        @keyframes flyAcross {
+            0% { transform: translateX(-100%) translateY(0px) rotate(2deg); }
+            50% { transform: translateX(50vw) translateY(-4px) rotate(-1deg); }
+            100% { transform: translateX(105vw) translateY(0px) rotate(2deg); }
+        }
+        .animate-flying-plane {
+            animation: flyAcross 20s linear infinite;
+        }
+        /* Shimmer Glow effect */
+        .shimmer-bg {
+            background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
+            background-size: 200% 100%;
+            animation: shimmer 3s infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        .hover-lift {
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .hover-lift:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 25px 40px -12px rgba(11, 37, 69, 0.22);
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s cubic-bezier(0, 1, 0, 1);
+        }
+        .accordion-content.active {
+            max-height: 500px;
+            transition: max-height 0.5s ease-in-out;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0B2545;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #F97316;
+            border-radius: 5px;
+        }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased selection:bg-brand-accent selection:text-white">
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-brand-accent selection:text-white relative overflow-x-hidden">
 
-    <!-- BARRA SUPERIOR DE URGENCIA / TICKER -->
-    <div class="bg-gradient-to-r from-brand-blue via-brand-navy to-brand-slate text-white text-xs md:text-sm font-medium py-2 overflow-hidden border-b border-white/10 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 flex items-center justify-between">
+    <!-- WIDGET FLOTANTE WHATSAPP USA CON PULSO ANIMADO -->
+    <a href="https://wa.me/17324334659?text=Hola%20Iberomundo%20Viajes%20USA,%20deseo%20asesoría%20personalizada%20para%20un%20vuelo" 
+       target="_blank" 
+       title="Hablar con un Agente por WhatsApp"
+       class="fixed bottom-6 right-6 z-50 bg-brand-whatsapp text-white p-4 rounded-full shadow-glow-whatsapp hover:scale-110 transition-all duration-300 flex items-center justify-center group">
+        <span class="absolute -top-2 -right-1 bg-red-600 text-white text-[10px] font-black px-2 py-0.5 rounded-full border-2 border-white animate-bounce">1</span>
+        <i class="fa-brands fa-whatsapp text-3xl"></i>
+        <span class="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-500 ease-in-out whitespace-nowrap text-sm font-bold pl-0 group-hover:pl-3">
+            Atención Inmediata USA
+        </span>
+    </a>
+
+    <!-- BARRA SUPERIOR DE URGENCIA CON AVIÓN ANIMADO EN TIEMPO REAL -->
+    <div class="bg-gradient-to-r from-brand-blue via-brand-navy to-brand-slate text-white text-xs md:text-sm font-medium py-2.5 overflow-hidden border-b border-white/10 sticky top-0 z-50 shadow-sm relative">
+        <!-- Avión volando de fondo en el Ticker -->
+        <div class="absolute inset-0 pointer-events-none overflow-hidden opacity-30">
+            <div class="animate-flying-plane flex items-center text-brand-accent">
+                <i class="fa-solid fa-plane text-base mr-1"></i>
+                <span class="h-0.5 w-24 bg-gradient-to-r from-transparent via-brand-accent to-transparent"></span>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 flex items-center justify-between relative z-10">
             <div class="flex items-center space-x-2 shrink-0 z-10 bg-brand-blue pr-3">
-                <span class="flex h-2 w-2 relative">
+                <span class="flex h-2.5 w-2.5 relative">
                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-accent opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-accent"></span>
+                    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-accent"></span>
                 </span>
-                <span class="font-bold text-brand-accent uppercase tracking-wider text-[11px]">En Vivo:</span>
+                <span class="font-extrabold text-brand-accent uppercase tracking-wider text-[11px]">En Vivo USA:</span>
             </div>
             <div class="overflow-hidden w-full relative">
                 <div class="animate-ticker space-x-8 text-slate-200">
-                    <span>🔥 Madrid <i class="fa-solid => fa-arrow-right text-brand-accent text-xs mx-1"></i> Bogotá desde <strong>499€</strong></span>
-                    <span>✈️ Barcelona <i class="fa-solid fa-arrow-right text-brand-accent text-xs mx-1"></i> Cali desde <strong>520€</strong></span>
-                    <span>🌟 Madrid <i class="fa-solid fa-arrow-right text-brand-accent text-xs mx-1"></i> Quito desde <strong>540€</strong></span>
-                    <span>⚡ Madrid <i class="fa-solid fa-arrow-right text-brand-accent text-xs mx-1"></i> Lima desde <strong>510€</strong></span>
-                    <span>🎉 Barcelona <i class="fa-solid fa-arrow-right text-brand-accent text-xs mx-1"></i> Guayaquil desde <strong>535€</strong></span>
-                    <span>✨ Madrid <i class="fa-solid fa-arrow-right text-brand-accent text-xs mx-1"></i> Santa Cruz desde <strong>590€</strong></span>
-                    <span>💳 ¡Financia en 3, 6, 9 o 12 meses con <strong>Fliinow</strong> o congela con Cuota Inicial acorde a la oferta!</span>
+                    <span>🔥 Miami <i class="fa-solid fa-arrow-right text-brand-accent text-xs mx-1"></i> Bogotá desde <strong class="text-amber-400 font-extrabold">$320 USD</strong></span>
+                    <span>✈️ Nueva York <i class="fa-solid fa-arrow-right text-brand-accent text-xs mx-1"></i> Cali desde <strong class="text-amber-400 font-extrabold">$350 USD</strong></span>
+                    <span>🌟 Miami <i class="fa-solid fa-arrow-right text-brand-accent text-xs mx-1"></i> Quito desde <strong class="text-amber-400 font-extrabold">$340 USD</strong></span>
+                    <span>⚡ Miami <i class="fa-solid fa-arrow-right text-brand-accent text-xs mx-1"></i> Lima desde <strong class="text-amber-400 font-extrabold">$380 USD</strong></span>
+                    <span>🎉 Nueva York <i class="fa-solid fa-arrow-right text-brand-accent text-xs mx-1"></i> Guayaquil desde <strong class="text-amber-400 font-extrabold">$360 USD</strong></span>
+                    <span>✨ Miami <i class="fa-solid fa-arrow-right text-brand-accent text-xs mx-1"></i> Santa Cruz desde <strong class="text-amber-400 font-extrabold">$490 USD</strong></span>
+                    <span>💳 ¡Financia en 3, 6, 9 o 12 meses o congela con Cuota Inicial acorde a la oferta!</span>
                 </div>
             </div>
-            <a href="https://wa.me/34697797858?text=Hola,%20quisiera%20consultar%20las%20ofertas%20en%20vivo" target="_blank" class="hidden md:flex items-center space-x-1 shrink-0 bg-brand-accent hover:bg-orange-600 text-white px-2.5 py-0.5 rounded text-xs font-semibold transition ml-3">
+            <a href="https://wa.me/17324334659?text=Hola,%20quisiera%20consultar%20las%20ofertas%20en%20vivo%20desde%20USA" target="_blank" class="hidden md:flex items-center space-x-1.5 shrink-0 bg-brand-accent hover:bg-orange-600 text-white px-3 py-1 rounded-lg text-xs font-bold transition shadow-sm ml-3">
                 <i class="fa-brands fa-whatsapp text-sm"></i>
                 <span>Atención Directa</span>
             </a>
         </div>
     </div>
 
-    <!-- HEADER NAVEGACIÓN -->
-    <header class="bg-white/95 backdrop-blur-md shadow-md sticky top-[33px] z-40 transition-all duration-300">
+    <!-- HEADER NAVEGACIÓN STICKY CON GLASSMORPHISM -->
+    <header class="bg-white/95 backdrop-blur-md shadow-md sticky top-[37px] z-40 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
-                <!-- LOGO SVG -->
+                <!-- LOGO SVG ANIMADO -->
                 <a href="#" class="flex items-center space-x-3 group">
-                    <div class="w-12 h-12 bg-brand-blue rounded-xl flex items-center justify-center p-2 shadow-lg group-hover:scale-105 transition-transform duration-300">
+                    <div class="w-12 h-12 bg-gradient-to-br from-brand-blue to-brand-navy rounded-2xl flex items-center justify-center p-2.5 shadow-md group-hover:scale-105 transition-transform duration-300">
                         <svg class="w-full h-full text-white" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <!-- Globo terráqueo -->
                             <circle cx="50" cy="50" r="42" stroke="currentColor" stroke-width="5" opacity="0.3"/>
@@ -119,28 +192,30 @@
                     </div>
                     <div class="flex flex-col">
                         <span class="text-2xl font-black tracking-tight text-brand-blue leading-none">IBEROMUNDO</span>
-                        <span class="text-xs font-bold tracking-widest text-brand-accent uppercase">VIAJES</span>
+                        <span class="text-xs font-extrabold tracking-widest text-brand-accent uppercase mt-0.5">VIAJES USA</span>
                     </div>
                 </a>
 
                 <!-- NAVEGACIÓN DESKTOP -->
-                <nav class="hidden md:flex items-center space-x-8 font-semibold text-slate-700">
+                <nav class="hidden md:flex items-center space-x-8 font-bold text-slate-700 text-sm">
                     <a href="#buscador" class="hover:text-brand-accent transition">Buscar Vuelos</a>
-                    <a href="#financiacion" class="hover:text-brand-accent transition flex items-center gap-1">
+                    <a href="#destinos" class="hover:text-brand-accent transition">Destinos Top</a>
+                    <a href="#financiacion" class="hover:text-brand-accent transition flex items-center gap-1.5">
                         <span>Pago a Plazos</span>
-                        <span class="bg-brand-accent/10 text-brand-accent text-[10px] font-extrabold px-1.5 py-0.5 rounded uppercase">Fliinow</span>
+                        <span class="bg-brand-accent/10 text-brand-accent text-[10px] font-extrabold px-2 py-0.5 rounded-full uppercase">USA</span>
                     </a>
+                    <a href="#experiencia" class="hover:text-brand-accent transition">A bordo</a>
                     <a href="#beneficios" class="hover:text-brand-accent transition">Atención VIP</a>
-                    <a href="#faq" class="hover:text-brand-accent transition">Preguntas Frecuentes</a>
+                    <a href="#faq" class="hover:text-brand-accent transition">FAQ</a>
                 </nav>
 
                 <!-- BOTÓN WHATSAPP HEADER -->
                 <div class="flex items-center space-x-3">
-                    <a href="https://wa.me/34697797858?text=Hola%20Iberomundo%20Viajes,%20deseo%20información%20sobre%20boletos%20a%20Latinoamérica" 
+                    <a href="https://wa.me/17324334659?text=Hola%20Iberomundo%20Viajes%20USA,%20deseo%20información%20sobre%20boletos%20a%20Latinoamérica" 
                        target="_blank" 
-                       class="bg-brand-whatsapp hover:bg-emerald-600 text-white font-bold px-4 py-2.5 rounded-xl shadow-lg hover:shadow-emerald-500/20 transition-all flex items-center space-x-2 text-sm">
+                       class="bg-brand-whatsapp hover:bg-emerald-600 text-white font-extrabold px-4 py-2.5 rounded-xl shadow-lg hover:shadow-emerald-500/20 transition-all flex items-center space-x-2 text-sm transform hover:-translate-y-0.5">
                         <i class="fa-brands fa-whatsapp text-lg"></i>
-                        <span class="hidden sm:inline">+34 697 79 78 58</span>
+                        <span class="hidden sm:inline">+1 (732) 433-4659</span>
                         <span class="sm:hidden">WhatsApp</span>
                     </a>
                 </div>
@@ -149,59 +224,61 @@
     </header>
 
     <!-- HERO SECTION -->
-    <section class="hero-bg min-h-[90vh] pt-8 pb-16 px-4 flex items-center justify-center relative">
+    <section class="hero-bg min-h-[90vh] pt-10 pb-20 px-4 flex items-center justify-center relative">
         <div class="max-w-6xl w-full mx-auto relative z-10">
             
-            <div class="text-center max-w-3xl mx-auto mb-8">
-                <span class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-semibold px-4 py-1.5 rounded-full mb-4">
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <span class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-bold px-4 py-1.5 rounded-full mb-4 shadow-sm">
                     <i class="fa-solid fa-plane-departure text-brand-accent"></i>
-                    Agencia Oficial de Viajes entre España y Latinoamérica
+                    Agencia Oficial de Viajes entre EE. UU. y Latinoamérica
                 </span>
-                <h1 class="text-3xl sm:text-5xl font-black text-white leading-tight tracking-tight mb-4 drop-shadow-md">
+                <h1 class="text-3xl sm:text-5xl md:text-6xl font-black text-white leading-tight tracking-tight mb-4 drop-shadow-md">
                     Tu Vuelo a Latinoamérica al <span class="text-brand-accent underline decoration-brand-accent/40 decoration-4">Mejor Precio</span> y en Cuotas
                 </h1>
                 <p class="text-slate-200 text-base sm:text-lg font-normal">
-                    Viaja con la tranquilidad de financiar con <strong>Fliinow</strong> en 3, 6, 9 o 12 meses, o congela la tarifa reservando con una <strong>Cuota Inicial acorde a la oferta</strong>.
+                    Viaja con la tranquilidad de financiar en 3, 6, 9 o 12 meses, o congela la tarifa reservando con una <strong>Cuota Inicial acorde a la oferta</strong>.
                 </p>
             </div>
 
-            <!-- BUSCADOR TIPO SKYSCANNER -->
-            <div id="buscador" class="glass-card rounded-2xl p-4 sm:p-8 shadow-2xl border border-white/30 text-slate-800">
+            <!-- BUSCADOR TIPO SKYSCANNER INTERACTIVO -->
+            <div id="buscador" class="glass-card rounded-3xl p-6 sm:p-10 shadow-2xl border border-white/40 text-slate-800">
                 <!-- PESTAÑAS TIPO VUELO -->
-                <div class="flex items-center space-x-4 mb-6 border-b border-slate-200 pb-4">
-                    <label class="flex items-center space-x-2 cursor-pointer">
-                        <input type="radio" name="tripType" value="roundtrip" checked onchange="toggleTripType('roundtrip')" class="w-4 h-4 text-brand-accent focus:ring-brand-accent">
-                        <span class="font-bold text-slate-800 text-sm sm:text-base">Ida y vuelta</span>
+                <div class="flex items-center space-x-6 mb-6 border-b border-slate-200 pb-4">
+                    <label class="flex items-center space-x-2.5 cursor-pointer group">
+                        <input type="radio" name="tripType" value="roundtrip" checked onchange="toggleTripType('roundtrip')" class="w-4 h-4 text-brand-accent focus:ring-brand-accent cursor-pointer">
+                        <span class="font-extrabold text-slate-800 text-sm sm:text-base group-hover:text-brand-accent transition">Ida y vuelta</span>
                     </label>
-                    <label class="flex items-center space-x-2 cursor-pointer">
-                        <input type="radio" name="tripType" value="oneway" onchange="toggleTripType('oneway')" class="w-4 h-4 text-brand-accent focus:ring-brand-accent">
-                        <span class="font-bold text-slate-800 text-sm sm:text-base">Solo ida</span>
+                    <label class="flex items-center space-x-2.5 cursor-pointer group">
+                        <input type="radio" name="tripType" value="oneway" onchange="toggleTripType('oneway')" class="w-4 h-4 text-brand-accent focus:ring-brand-accent cursor-pointer">
+                        <span class="font-extrabold text-slate-800 text-sm sm:text-base group-hover:text-brand-accent transition">Solo ida</span>
                     </label>
                 </div>
 
-                <form id="flightSearchForm" onsubmit="handleFlightSearch(event)" class="space-y-4">
+                <form id="flightSearchForm" onsubmit="handleFlightSearch(event)" class="space-y-5">
                     <!-- ORIGEN Y DESTINO -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div class="relative">
-                            <label class="block text-xs font-bold text-slate-600 uppercase mb-1">
-                                <i class="fa-solid fa-plane-departure text-brand-navy mr-1"></i> Origen
+                            <label class="block text-xs font-extrabold text-slate-600 uppercase mb-1.5 tracking-wider">
+                                <i class="fa-solid fa-plane-departure text-brand-navy mr-1"></i> Origen (EE. UU.)
                             </label>
-                            <input type="text" id="origin" list="airportsList" placeholder="Ej: Madrid (MAD) o Barcelona (BCN)" required
-                                class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent transition">
+                            <input type="text" id="origin" list="airportsList" placeholder="Ej: Miami (MIA) o Nueva York (JFK)" required
+                                class="w-full bg-slate-50 border border-slate-300 rounded-2xl px-4 py-3.5 text-slate-900 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent transition shadow-sm">
                         </div>
                         <div class="relative">
-                            <label class="block text-xs font-bold text-slate-600 uppercase mb-1">
+                            <label class="block text-xs font-extrabold text-slate-600 uppercase mb-1.5 tracking-wider">
                                 <i class="fa-solid fa-plane-arrival text-brand-navy mr-1"></i> Destino en Latinoamérica
                             </label>
                             <input type="text" id="destination" list="airportsList" placeholder="Ej: Bogotá, Quito, Lima, Cali, Guayaquil..." required
-                                class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent transition">
+                                class="w-full bg-slate-50 border border-slate-300 rounded-2xl px-4 py-3.5 text-slate-900 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent transition shadow-sm">
                         </div>
                     </div>
 
                     <!-- DATALIST PARA AUTOCOMPLETADO DE AEROPUERTOS -->
                     <datalist id="airportsList">
-                        <option value="Madrid (MAD) - España">
-                        <option value="Barcelona (BCN) - España">
+                        <option value="Miami (MIA) - EE. UU.">
+                        <option value="Nueva York (JFK) - EE. UU.">
+                        <option value="Orlando (MCO) - EE. UU.">
+                        <option value="Houston (IAH) - EE. UU.">
                         <option value="Bogotá (BOG) - Colombia">
                         <option value="Cali (CLO) - Colombia">
                         <option value="Medellín (MDE) - Colombia">
@@ -216,28 +293,28 @@
                     </datalist>
 
                     <!-- FECHAS Y PASAJEROS -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
                         <div>
-                            <label class="block text-xs font-bold text-slate-600 uppercase mb-1">
+                            <label class="block text-xs font-extrabold text-slate-600 uppercase mb-1.5 tracking-wider">
                                 <i class="fa-regular fa-calendar-check text-brand-navy mr-1"></i> Fecha Ida
                             </label>
                             <input type="date" id="departDate" required
-                                class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent transition">
+                                class="w-full bg-slate-50 border border-slate-300 rounded-2xl px-4 py-3.5 text-slate-900 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent transition shadow-sm">
                         </div>
 
                         <div id="returnDateContainer">
-                            <label class="block text-xs font-bold text-slate-600 uppercase mb-1">
+                            <label class="block text-xs font-extrabold text-slate-600 uppercase mb-1.5 tracking-wider">
                                 <i class="fa-regular fa-calendar-minus text-brand-navy mr-1"></i> Fecha Vuelta
                             </label>
                             <input type="date" id="returnDate" required
-                                class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent transition">
+                                class="w-full bg-slate-50 border border-slate-300 rounded-2xl px-4 py-3.5 text-slate-900 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent transition shadow-sm">
                         </div>
 
                         <div>
-                            <label class="block text-xs font-bold text-slate-600 uppercase mb-1">
+                            <label class="block text-xs font-extrabold text-slate-600 uppercase mb-1.5 tracking-wider">
                                 <i class="fa-solid fa-users text-brand-navy mr-1"></i> Pasajeros
                             </label>
-                            <select id="passengers" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent transition">
+                            <select id="passengers" class="w-full bg-slate-50 border border-slate-300 rounded-2xl px-4 py-3.5 text-slate-900 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent transition shadow-sm">
                                 <option value="1 Adulto">1 Adulto</option>
                                 <option value="2 Adultos">2 Adultos</option>
                                 <option value="3 Adultos">3 Adultos</option>
@@ -247,11 +324,11 @@
                         </div>
 
                         <div>
-                            <label class="block text-xs font-bold text-slate-600 uppercase mb-1">
+                            <label class="block text-xs font-extrabold text-slate-600 uppercase mb-1.5 tracking-wider">
                                 <i class="fa-solid fa-credit-card text-brand-navy mr-1"></i> Modo de Pago
                             </label>
-                            <select id="paymentPref" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent transition">
-                                <option value="Financiación Fliinow (3 a 12 meses)">Financiación Fliinow (3-12 meses)</option>
+                            <select id="paymentPref" class="w-full bg-slate-50 border border-slate-300 rounded-2xl px-4 py-3.5 text-slate-900 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent transition shadow-sm">
+                                <option value="Financiación (3 a 12 meses)">Financiación (3-12 meses)</option>
                                 <option value="Reserva con Cuota Inicial acorde a oferta">Pago Inicial / Cuota Inicial</option>
                                 <option value="Pago Contado Completo">Pago Único Contado</option>
                             </select>
@@ -260,30 +337,30 @@
 
                     <!-- BOTÓN PRINCIPAL DE BÚSQUEDA -->
                     <div class="pt-2">
-                        <button type="submit" class="w-full bg-gradient-to-r from-brand-accent to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-extrabold text-lg py-4 px-8 rounded-xl shadow-xl hover:shadow-orange-500/30 transition-all transform hover:-translate-y-0.5 flex items-center justify-center space-x-3">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                            <span>BUSCAR OFERTAS Y CONSULTAR CON UN AGENTE</span>
+                        <button type="submit" class="w-full bg-gradient-to-r from-brand-accent to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-black text-base sm:text-lg py-4 px-8 rounded-2xl shadow-xl shadow-orange-500/20 hover:shadow-orange-500/40 transition-all transform hover:-translate-y-0.5 flex items-center justify-center space-x-3">
+                            <i class="fa-solid fa-magnifying-glass text-lg"></i>
+                            <span>BUSCAR OFERTAS Y CONSULTAR CON UN AGENTE EN USA</span>
                         </button>
                     </div>
                 </form>
 
                 <!-- GARANTÍAS DE BÚSQUEDA -->
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 pt-6 border-t border-slate-200 text-center text-xs font-semibold text-slate-600">
-                    <div class="flex items-center justify-center space-x-1.5">
-                        <i class="fa-solid fa-bolt text-brand-accent"></i>
-                        <span>Aprobación Fliinow en 5 min</span>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 pt-6 border-t border-slate-200 text-center text-xs font-bold text-slate-600">
+                    <div class="flex items-center justify-center space-x-2 bg-slate-50 py-2.5 px-3 rounded-xl border border-slate-100 shadow-sm">
+                        <i class="fa-solid fa-bolt text-brand-accent text-sm"></i>
+                        <span>Aprobación en 5 min</span>
                     </div>
-                    <div class="flex items-center justify-center space-x-1.5">
-                        <i class="fa-solid fa-suitcase text-brand-navy"></i>
+                    <div class="flex items-center justify-center space-x-2 bg-slate-50 py-2.5 px-3 rounded-xl border border-slate-100 shadow-sm">
+                        <i class="fa-solid fa-suitcase text-brand-navy text-sm"></i>
                         <span>Maleta Incluida Asesorada</span>
                     </div>
-                    <div class="flex items-center justify-center space-x-1.5">
-                        <i class="fa-solid fa-user-check text-brand-whatsapp"></i>
+                    <div class="flex items-center justify-center space-x-2 bg-slate-50 py-2.5 px-3 rounded-xl border border-slate-100 shadow-sm">
+                        <i class="fa-solid fa-user-check text-brand-whatsapp text-sm"></i>
                         <span>Agente Humano Dedicado</span>
                     </div>
-                    <div class="flex items-center justify-center space-x-1.5">
-                        <i class="fa-solid fa-shield-halved text-slate-700"></i>
-                        <span>Agencia 100% Oficial</span>
+                    <div class="flex items-center justify-center space-x-2 bg-slate-50 py-2.5 px-3 rounded-xl border border-slate-100 shadow-sm">
+                        <i class="fa-solid fa-shield-halved text-slate-700 text-sm"></i>
+                        <span>Agencia 100% Oficial USA</span>
                     </div>
                 </div>
             </div>
@@ -291,154 +368,299 @@
         </div>
     </section>
 
+    <!-- SECCIÓN DE DESTINOS POPULARES EN LATINOAMÉRICA CON FOTOGRAFÍA HIPERREALISTA -->
+    <section id="destinos" class="py-20 bg-slate-100 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <span class="text-brand-accent font-black text-xs uppercase tracking-widest bg-orange-100 px-4 py-1.5 rounded-full border border-orange-200">
+                    <i class="fa-solid fa-fire mr-1"></i> Rutas Más Solicitadas
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-black text-brand-blue mt-4">Destinos Favoritos a Latinoamérica</h2>
+                <p class="text-slate-600 text-base sm:text-lg mt-2">
+                    Vuela directo o con las mejores escalas desde Miami, Nueva York y todo EE. UU.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Tarjeta 1: Colombia / Bogotá -->
+                <div class="hover-lift bg-white rounded-3xl overflow-hidden shadow-xl border border-slate-200/80 group flex flex-col justify-between">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?q=80&w=800&auto=format&fit=crop" alt="Bogotá Colombia" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent"></div>
+                        <span class="absolute top-4 right-4 bg-brand-blue/90 text-white font-black text-xs px-3 py-1.5 rounded-full backdrop-blur-md">
+                            🇨🇴 Colombia
+                        </span>
+                        <div class="absolute bottom-4 left-4 text-white">
+                            <h3 class="text-2xl font-black">Bogotá</h3>
+                            <p class="text-xs text-slate-300">Saliendo desde MIA / JFK</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <span class="text-xs font-bold text-slate-400 block uppercase">Desde</span>
+                                <span class="text-2xl font-black text-brand-accent">$320 <span class="text-xs font-semibold text-slate-600">USD</span></span>
+                            </div>
+                            <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200">
+                                <i class="fa-solid fa-suitcase mr-1"></i> Maleta Incluida
+                            </span>
+                        </div>
+                        <a href="https://wa.me/17324334659?text=Hola,%20quisiera%20cotizar%20un%20vuelo%20a%20Bogotá" target="_blank" 
+                           class="w-full bg-brand-blue hover:bg-brand-navy text-white font-extrabold py-3 px-4 rounded-xl transition text-center block text-sm shadow-md">
+                            Cotizar Bogotá por WhatsApp
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 2: Ecuador / Quito -->
+                <div class="hover-lift bg-white rounded-3xl overflow-hidden shadow-xl border border-slate-200/80 group flex flex-col justify-between">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1589308078059-be1415eab4c3?q=80&w=800&auto=format&fit=crop" alt="Quito Ecuador" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent"></div>
+                        <span class="absolute top-4 right-4 bg-brand-blue/90 text-white font-black text-xs px-3 py-1.5 rounded-full backdrop-blur-md">
+                            🇪🇨 Ecuador
+                        </span>
+                        <div class="absolute bottom-4 left-4 text-white">
+                            <h3 class="text-2xl font-black">Quito / Guayaquil</h3>
+                            <p class="text-xs text-slate-300">Saliendo desde MIA / JFK / MCO</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <span class="text-xs font-bold text-slate-400 block uppercase">Desde</span>
+                                <span class="text-2xl font-black text-brand-accent">$340 <span class="text-xs font-semibold text-slate-600">USD</span></span>
+                            </div>
+                            <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200">
+                                <i class="fa-solid fa-snowflake mr-1"></i> Congela con Cuota
+                            </span>
+                        </div>
+                        <a href="https://wa.me/17324334659?text=Hola,%20quisiera%20cotizar%20un%20vuelo%20a%20Ecuador" target="_blank" 
+                           class="w-full bg-brand-blue hover:bg-brand-navy text-white font-extrabold py-3 px-4 rounded-xl transition text-center block text-sm shadow-md">
+                            Cotizar Ecuador por WhatsApp
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 3: Perú / Lima -->
+                <div class="hover-lift bg-white rounded-3xl overflow-hidden shadow-xl border border-slate-200/80 group flex flex-col justify-between">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1526392060635-9d6019884377?q=80&w=800&auto=format&fit=crop" alt="Lima Perú" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent"></div>
+                        <span class="absolute top-4 right-4 bg-brand-blue/90 text-white font-black text-xs px-3 py-1.5 rounded-full backdrop-blur-md">
+                            🇵🇪 Perú
+                        </span>
+                        <div class="absolute bottom-4 left-4 text-white">
+                            <h3 class="text-2xl font-black">Lima</h3>
+                            <p class="text-xs text-slate-300">Saliendo desde todo EE. UU.</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <span class="text-xs font-bold text-slate-400 block uppercase">Desde</span>
+                                <span class="text-2xl font-black text-brand-accent">$380 <span class="text-xs font-semibold text-slate-600">USD</span></span>
+                            </div>
+                            <span class="text-xs font-bold text-brand-accent bg-orange-50 px-2.5 py-1 rounded-lg border border-orange-200">
+                                <i class="fa-solid fa-clock mr-1"></i> Oferta Limitada
+                            </span>
+                        </div>
+                        <a href="https://wa.me/17324334659?text=Hola,%20quisiera%20cotizar%20un%20vuelo%20a%20Lima" target="_blank" 
+                           class="w-full bg-brand-blue hover:bg-brand-navy text-white font-extrabold py-3 px-4 rounded-xl transition text-center block text-sm shadow-md">
+                            Cotizar Lima por WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN DE EXPERIENCIA A BORDO E IMÁGENES DE CONFORT -->
+    <section id="experiencia" class="py-20 bg-brand-blue text-white relative overflow-hidden">
+        <div class="absolute -right-20 -top-20 opacity-10 pointer-events-none">
+            <i class="fa-solid fa-plane-up text-[300px]"></i>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <span class="bg-brand-accent text-white font-black text-xs uppercase tracking-widest px-4 py-1.5 rounded-full">
+                        Experiencia Internacional Premium
+                    </span>
+                    <h2 class="text-3xl sm:text-5xl font-black mt-4 leading-tight">
+                        Vuela con el Confort y Respaldo que Mereces
+                    </h2>
+                    <p class="text-slate-300 text-base sm:text-lg mt-4 leading-relaxed">
+                        Emitimos tus billetes directamente con las mejores aerolíneas comerciales asociadas (Avianca, LATAM, Copa Airlines, American Airlines, United, Delta y más), garantizando equipaje optimizado y asignación de asientos.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 mt-8">
+                        <div class="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/10">
+                            <i class="fa-solid fa-chair text-brand-accent text-2xl mb-2"></i>
+                            <h4 class="font-bold text-white text-sm">Asientos Cómodos</h4>
+                            <p class="text-xs text-slate-300">Asignación previa en vuelos de larga distancia.</p>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/10">
+                            <i class="fa-solid fa-suitcase-rolling text-emerald-400 text-2xl mb-2"></i>
+                            <h4 class="font-bold text-white text-sm">Maleta Garantizada</h4>
+                            <p class="text-xs text-slate-300">Revisión manual de franquicia de equipaje.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=600&auto=format&fit=crop" alt="Experiencia Avión" class="rounded-3xl shadow-2xl object-cover h-64 w-full border border-white/20 transform hover:-rotate-1 transition">
+                    <img src="https://images.unsplash.com/photo-1569154941061-e231b4725ef1?q=80&w=600&auto=format&fit=crop" alt="Vuelo internacional nubes" class="rounded-3xl shadow-2xl object-cover h-64 w-full border border-white/20 transform hover:rotate-1 transition mt-8">
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- SECCIÓN FINANCIACIÓN Y PLANES DE PAGO -->
-    <section id="financiacion" class="py-20 bg-white">
+    <section id="financiacion" class="py-24 bg-white relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-16">
-                <span class="text-brand-accent font-extrabold text-xs uppercase tracking-widest bg-orange-100 px-3 py-1 rounded-full">Facilidades Flexibles</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-blue mt-3">Planes de Pago a tu Medida</h2>
+                <span class="text-brand-accent font-black text-xs uppercase tracking-widest bg-orange-50 border border-orange-200 px-4 py-1.5 rounded-full">Facilidades Flexibles</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-brand-blue mt-4">Planes de Pago a tu Medida</h2>
                 <p class="text-slate-600 text-base sm:text-lg mt-3">
-                    En Iberomundo Viajes te ofrecemos las mejores soluciones financieras para que volar a ver a tus seres queridos no sea una carga.
+                    En Iberomundo Viajes USA te ofrecemos las mejores soluciones financieras para que volar a ver a tus seres queridos no sea una carga.
                 </p>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
-                <!-- TARJETA FLIINOW -->
-                <div class="bg-gradient-to-br from-slate-900 to-brand-blue text-white rounded-3xl p-8 shadow-xl flex flex-col justify-between relative overflow-hidden">
-                    <div class="absolute -right-10 -bottom-10 opacity-10 text-white">
+                <!-- TARJETA FINANCIACIÓN A PLAZOS -->
+                <div class="hover-lift bg-gradient-to-br from-slate-900 via-brand-navy to-brand-blue text-white rounded-3xl p-8 sm:p-10 shadow-2xl flex flex-col justify-between relative overflow-hidden border border-white/10">
+                    <div class="absolute -right-8 -bottom-8 opacity-5 text-white pointer-events-none">
                         <i class="fa-solid fa-credit-card text-9xl"></i>
                     </div>
                     <div>
                         <div class="flex items-center justify-between mb-6">
-                            <span class="bg-brand-accent text-white font-black text-xs px-3 py-1 rounded-full uppercase tracking-wider">Aprobación Instantánea</span>
-                            <span class="text-slate-300 font-semibold text-sm"><i class="fa-regular fa-clock mr-1"></i> Solo 5 Minutos</span>
+                            <span class="bg-brand-accent text-white font-black text-xs px-3.5 py-1.5 rounded-full uppercase tracking-wider shadow-sm">Aprobación Rápida</span>
+                            <span class="text-slate-300 font-bold text-sm bg-white/10 px-3 py-1 rounded-full"><i class="fa-regular fa-clock mr-1 text-brand-accent"></i> Solo 5 Minutos</span>
                         </div>
-                        <h3 class="text-2xl sm:text-3xl font-black mb-2">Financiación con Fliinow</h3>
-                        <p class="text-slate-300 text-sm mb-6">
-                            Paga tu boleto en cómodas cuotas mensuales con la garantía y transparencia de la financiera <strong>Fliinow</strong>.
+                        <h3 class="text-2xl sm:text-3xl font-black mb-3">Financiación Flexible</h3>
+                        <p class="text-slate-300 text-sm sm:text-base mb-6 leading-relaxed">
+                            Paga tu boleto en cómodas cuotas mensuales con la garantía y transparencia de <strong>Iberomundo Viajes USA</strong>.
                         </p>
                         
-                        <div class="grid grid-cols-2 gap-3 mb-6">
+                        <div class="grid grid-cols-2 gap-4 mb-8">
                             <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/10 text-center">
-                                <span class="block text-2xl font-black text-brand-accent">3, 6, 9, 12</span>
-                                <span class="text-xs text-slate-300 font-medium">Meses para elegir</span>
+                                <span class="block text-2xl sm:text-3xl font-black text-brand-accent">3, 6, 9, 12</span>
+                                <span class="text-xs text-slate-300 font-bold uppercase tracking-wider mt-1 block">Meses para elegir</span>
                             </div>
                             <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/10 text-center">
-                                <span class="block text-2xl font-black text-emerald-400">Sin Papeleo</span>
-                                <span class="text-xs text-slate-300 font-medium">Respuesta Inmediata</span>
+                                <span class="block text-2xl sm:text-3xl font-black text-emerald-400">Sin Papeleo</span>
+                                <span class="text-xs text-slate-300 font-bold uppercase tracking-wider mt-1 block">Respuesta Inmediata</span>
                             </div>
                         </div>
 
-                        <ul class="space-y-3 text-sm text-slate-200 mb-8">
-                            <li class="flex items-center space-x-2">
-                                <i class="fa-solid fa-circle-check text-brand-accent"></i>
+                        <ul class="space-y-3.5 text-sm text-slate-200 mb-8 font-medium">
+                            <li class="flex items-center space-x-3">
+                                <i class="fa-solid fa-circle-check text-brand-accent text-base"></i>
                                 <span>Requisitos mínimos y proceso 100% digital</span>
                             </li>
-                            <li class="flex items-center space-x-2">
-                                <i class="fa-solid fa-circle-check text-brand-accent"></i>
+                            <li class="flex items-center space-x-3">
+                                <i class="fa-solid fa-circle-check text-brand-accent text-base"></i>
                                 <span>Puedes diferir el total de tus pasajes y equipaje</span>
                             </li>
-                            <li class="flex items-center space-x-2">
-                                <i class="fa-solid fa-circle-check text-brand-accent"></i>
+                            <li class="flex items-center space-x-3">
+                                <i class="fa-solid fa-circle-check text-brand-accent text-base"></i>
                                 <span>Transparencia total sin comisiones ocultas</span>
                             </li>
                         </ul>
                     </div>
 
-                    <div class="pt-4 border-t border-white/10">
-                        <p class="text-[11px] text-slate-400 mb-4">*Sujeto a aprobación crediticia por parte de la entidad financiera Fliinow.</p>
-                        <a href="https://wa.me/34697797858?text=Hola,%20quisiera%20solicitar%20información%20para%20financiar%20mi%20vuelo%20con%20Fliinow" target="_blank" 
-                           class="w-full bg-brand-accent hover:bg-orange-600 text-white font-bold py-3.5 px-6 rounded-xl transition text-center block">
-                            Solicitar Financiación Fliinow
+                    <div class="pt-6 border-t border-white/10">
+                        <a href="https://wa.me/17324334659?text=Hola,%20quisiera%20solicitar%20información%20para%20financiar%20mi%20vuelo%20desde%20USA" target="_blank" 
+                           class="w-full bg-brand-accent hover:bg-orange-600 text-white font-extrabold py-4 px-6 rounded-2xl transition text-center block shadow-lg shadow-orange-500/20 transform hover:-translate-y-0.5">
+                            Solicitar Financiación por WhatsApp
                         </a>
                     </div>
                 </div>
 
                 <!-- TARJETA PLAN APARTADO / CUOTA INICIAL ACCORDE A OFERTA -->
-                <div class="bg-slate-50 border-2 border-brand-navy/10 rounded-3xl p-8 shadow-lg flex flex-col justify-between">
+                <div class="hover-lift bg-slate-50 border-2 border-slate-200/80 rounded-3xl p-8 sm:p-10 shadow-xl flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-6">
-                            <span class="bg-brand-navy text-white font-black text-xs px-3 py-1 rounded-full uppercase tracking-wider">Plan Apartado Flexible</span>
-                            <span class="text-brand-navy font-semibold text-sm"><i class="fa-solid fa-snowflake mr-1"></i> Congela tu Tarifa</span>
+                            <span class="bg-brand-navy text-white font-black text-xs px-3.5 py-1.5 rounded-full uppercase tracking-wider shadow-sm">Plan Apartado Flexible</span>
+                            <span class="text-brand-navy font-bold text-sm bg-brand-navy/5 px-3 py-1 rounded-full"><i class="fa-solid fa-snowflake mr-1 text-brand-accent"></i> Congela tu Tarifa</span>
                         </div>
-                        <h3 class="text-2xl sm:text-3xl font-black text-brand-blue mb-2">Cuota Inicial Acorde a la Oferta</h3>
-                        <p class="text-slate-600 text-sm mb-6">
-                            ¿Aún no quieres financiar? Congela el precio de tu vuelo pagando únicamente una **Cuota Inicial / Pago Inicial según las condiciones de la oferta elegida** y liquida el saldo restante progresivamente antes de volar.
+                        <h3 class="text-2xl sm:text-3xl font-black text-brand-blue mb-3">Cuota Inicial Acorde a la Oferta</h3>
+                        <p class="text-slate-600 text-sm sm:text-base mb-8 leading-relaxed">
+                            ¿Aún no quieres financiar? Congela el precio de tu vuelo pagando únicamente una <strong>Cuota Inicial / Pago Inicial según las condiciones de la oferta elegida</strong> y liquida el saldo restante progresivamente antes de volar.
                         </p>
 
                         <div class="space-y-4 mb-8">
-                            <div class="flex items-start space-x-4 bg-white p-4 rounded-2xl border border-slate-200">
-                                <div class="w-10 h-10 rounded-xl bg-orange-100 text-brand-accent flex items-center justify-center shrink-0 font-bold text-lg">1</div>
+                            <div class="flex items-start space-x-4 bg-white p-4.5 rounded-2xl border border-slate-200/80 shadow-sm">
+                                <div class="w-10 h-10 rounded-xl bg-orange-100 text-brand-accent flex items-center justify-center shrink-0 font-extrabold text-base shadow-sm">1</div>
                                 <div>
                                     <h4 class="font-bold text-brand-blue text-sm">Reserva la Oferta</h4>
-                                    <p class="text-xs text-slate-500">Un agente cotiza tu vuelo y te indica la cuota inicial mínima requerida para congelar la tarifa.</p>
+                                    <p class="text-xs text-slate-500 mt-0.5">Un agente cotiza tu vuelo y te indica la cuota inicial mínima requerida para congelar la tarifa.</p>
                                 </div>
                             </div>
-                            <div class="flex items-start space-x-4 bg-white p-4 rounded-2xl border border-slate-200">
-                                <div class="w-10 h-10 rounded-xl bg-blue-100 text-brand-navy flex items-center justify-center shrink-0 font-bold text-lg">2</div>
+                            <div class="flex items-start space-x-4 bg-white p-4.5 rounded-2xl border border-slate-200/80 shadow-sm">
+                                <div class="w-10 h-10 rounded-xl bg-blue-100 text-brand-navy flex items-center justify-center shrink-0 font-extrabold text-base shadow-sm">2</div>
                                 <div>
                                     <h4 class="font-bold text-brand-blue text-sm">Pagas la Cuota Inicial</h4>
-                                    <p class="text-xs text-slate-500">Aseguras tu asiento e itinerario en el sistema de la aerolínea de inmediato.</p>
+                                    <p class="text-xs text-slate-500 mt-0.5">Aseguras tu asiento e itinerario en el sistema de la aerolínea de inmediato.</p>
                                 </div>
                             </div>
-                            <div class="flex items-start space-x-4 bg-white p-4 rounded-2xl border border-slate-200">
-                                <div class="w-10 h-10 rounded-xl bg-emerald-100 text-brand-whatsapp flex items-center justify-center shrink-0 font-bold text-lg">3</div>
+                            <div class="flex items-start space-x-4 bg-white p-4.5 rounded-2xl border border-slate-200/80 shadow-sm">
+                                <div class="w-10 h-10 rounded-xl bg-emerald-100 text-brand-whatsapp flex items-center justify-center shrink-0 font-extrabold text-base shadow-sm">3</div>
                                 <div>
                                     <h4 class="font-bold text-brand-blue text-sm">Completa Antes de Volar</h4>
-                                    <p class="text-xs text-slate-500">Termina de pagar el saldo restante en los plazos fijados antes de tu fecha de salida.</p>
+                                    <p class="text-xs text-slate-500 mt-0.5">Termina de pagar el saldo restante en los plazos fijados antes de tu fecha de salida.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <a href="https://wa.me/34697797858?text=Hola,%20quiero%20congelar%20mi%20vuelo%20con%20el%20Pago%20Inicial%20acorde%20a%20la%20oferta" target="_blank" 
-                       class="w-full bg-brand-blue hover:bg-brand-navy text-white font-bold py-3.5 px-6 rounded-xl transition text-center block shadow-md">
+                    <a href="https://wa.me/17324334659?text=Hola,%20quiero%20congelar%20mi%20vuelo%20con%20el%20Pago%20Inicial%20acorde%20a%20la%20oferta" target="_blank" 
+                       class="w-full bg-brand-blue hover:bg-brand-navy text-white font-extrabold py-4 px-6 rounded-2xl transition text-center block shadow-lg shadow-brand-blue/10 transform hover:-translate-y-0.5">
                         Consultar Cuota Inicial de mi Vuelo
                     </a>
                 </div>
             </div>
 
-            <!-- SIMULADOR INTERACTIVO DE CUOTAS -->
-            <div class="mt-12 bg-slate-900 text-white rounded-3xl p-6 sm:p-10 shadow-2xl">
-                <div class="max-w-3xl mx-auto text-center mb-8">
-                    <span class="text-brand-accent font-bold text-xs uppercase tracking-widest">Calculadora Estimativa</span>
-                    <h3 class="text-2xl sm:text-3xl font-extrabold mt-1">Simulador de Cuotas Fliinow</h3>
-                    <p class="text-slate-400 text-sm mt-2">Calcula una estimación mensual aproximada para el total de tus billetes.</p>
+            <!-- SIMULADOR INTERACTIVO DE CUOTAS (USD) -->
+            <div class="mt-16 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 text-white rounded-3xl p-8 sm:p-12 shadow-2xl border border-slate-800">
+                <div class="max-w-3xl mx-auto text-center mb-10">
+                    <span class="text-brand-accent font-black text-xs uppercase tracking-widest bg-brand-accent/10 px-4 py-1.5 rounded-full border border-brand-accent/20">Calculadora Estimativa</span>
+                    <h3 class="text-2xl sm:text-4xl font-black mt-3">Simulador de Cuotas Mensuales</h3>
+                    <p class="text-slate-400 text-sm sm:text-base mt-2">Calcula una estimación mensual aproximada para el total de tus billetes en Dólares ($ USD).</p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center max-w-4xl mx-auto">
-                    <div class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center max-w-5xl mx-auto">
+                    <div class="space-y-8 bg-white/5 p-6 sm:p-8 rounded-3xl border border-white/10">
                         <div>
-                            <div class="flex justify-between text-sm font-semibold mb-2">
+                            <div class="flex justify-between text-sm font-bold mb-3">
                                 <span class="text-slate-300">Monto Total del Pasaje:</span>
-                                <span id="amountDisplay" class="text-brand-accent font-bold text-lg">600 €</span>
+                                <span id="amountDisplay" class="text-brand-accent font-black text-xl">$600 USD</span>
                             </div>
                             <input type="range" id="amountRange" min="300" max="3000" step="50" value="600" 
                                    oninput="updateCalculator()"
-                                   class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-brand-accent">
-                            <div class="flex justify-between text-xs text-slate-500 mt-1">
-                                <span>300 €</span>
-                                <span>3.000 €</span>
+                                   class="w-full h-2.5 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-brand-accent">
+                            <div class="flex justify-between text-xs font-bold text-slate-400 mt-2">
+                                <span>$300 USD</span>
+                                <span>$3,000 USD</span>
                             </div>
                         </div>
 
                         <div>
-                            <label class="block text-sm font-semibold text-slate-300 mb-2">Plazo de Financiación Fliinow:</label>
-                            <div class="grid grid-cols-4 gap-2">
-                                <button type="button" onclick="setMonths(3)" id="btn-3" class="month-btn py-2 rounded-xl border border-slate-700 font-bold text-sm bg-brand-accent text-white border-brand-accent">3 Meses</button>
-                                <button type="button" onclick="setMonths(6)" id="btn-6" class="month-btn py-2 rounded-xl border border-slate-700 font-bold text-sm bg-slate-800 text-slate-300">6 Meses</button>
-                                <button type="button" onclick="setMonths(9)" id="btn-9" class="month-btn py-2 rounded-xl border border-slate-700 font-bold text-sm bg-slate-800 text-slate-300">9 Meses</button>
-                                <button type="button" onclick="setMonths(12)" id="btn-12" class="month-btn py-2 rounded-xl border border-slate-700 font-bold text-sm bg-slate-800 text-slate-300">12 Meses</button>
+                            <label class="block text-sm font-bold text-slate-300 mb-3">Plazo de Financiación:</label>
+                            <div class="grid grid-cols-4 gap-2.5">
+                                <button type="button" onclick="setMonths(3)" id="btn-3" class="month-btn py-2.5 rounded-xl border border-slate-700 font-extrabold text-sm bg-brand-accent text-white border-brand-accent shadow-sm transition">3 M</button>
+                                <button type="button" onclick="setMonths(6)" id="btn-6" class="month-btn py-2.5 rounded-xl border border-slate-700 font-extrabold text-sm bg-slate-800 text-slate-300 transition hover:bg-slate-700">6 M</button>
+                                <button type="button" onclick="setMonths(9)" id="btn-9" class="month-btn py-2.5 rounded-xl border border-slate-700 font-extrabold text-sm bg-slate-800 text-slate-300 transition hover:bg-slate-700">9 M</button>
+                                <button type="button" onclick="setMonths(12)" id="btn-12" class="month-btn py-2.5 rounded-xl border border-slate-700 font-extrabold text-sm bg-slate-800 text-slate-300 transition hover:bg-slate-700">12 M</button>
                             </div>
                         </div>
                     </div>
 
-                    <div class="bg-white/5 border border-white/10 rounded-2xl p-6 text-center flex flex-col justify-center items-center">
-                        <span class="text-xs uppercase font-bold text-slate-400 tracking-wider">Cuota Mensual Estimada</span>
-                        <div id="monthlyEstimate" class="text-4xl sm:text-5xl font-black text-brand-accent my-3">208 €<span class="text-xs text-slate-400 font-normal">/mes</span></div>
-                        <p class="text-xs text-slate-400 mb-4">Calculado sobre <span id="calcMonths">3</span> meses a través de Fliinow (*sujeto a evaluación crediticia final).</p>
-                        <a id="calcWhatsappLink" href="https://wa.me/34697797858?text=Hola,%20he%20calculado%20un%20vuelo%20de%20600€%20en%203%20meses%20con%20Fliinow" target="_blank" 
-                           class="bg-brand-whatsapp hover:bg-emerald-600 text-white font-bold py-2.5 px-6 rounded-xl text-sm transition flex items-center space-x-2">
+                    <div class="bg-gradient-to-br from-brand-blue/30 to-brand-navy/50 border border-white/10 rounded-3xl p-8 text-center flex flex-col justify-center items-center shadow-xl">
+                        <span class="text-xs uppercase font-extrabold text-brand-accent tracking-widest bg-brand-accent/10 px-3 py-1 rounded-full mb-2">Cuota Mensual Estimada</span>
+                        <div id="monthlyEstimate" class="text-5xl sm:text-6xl font-black text-white my-3">$208<span class="text-sm text-brand-accent font-bold"> USD/mes</span></div>
+                        <p class="text-xs text-slate-300 mb-6 font-medium">Calculado sobre <span id="calcMonths" class="font-bold text-white">3</span> meses (*sujeto a evaluación final).</p>
+                        <a id="calcWhatsappLink" href="https://wa.me/17324334659?text=Hola,%20he%20calculado%20un%20vuelo%20de%20$600%20USD%20en%203%20meses" target="_blank" 
+                           class="w-full bg-brand-whatsapp hover:bg-emerald-600 text-white font-extrabold py-3.5 px-6 rounded-2xl text-sm transition flex items-center justify-center space-x-2 shadow-lg shadow-emerald-500/20 transform hover:-translate-y-0.5">
                             <i class="fa-brands fa-whatsapp text-lg"></i>
                             <span>Solicitar esta cuota en WhatsApp</span>
                         </a>
@@ -449,467 +671,192 @@
     </section>
 
     <!-- SECCIÓN ATENCIÓN HUMANA Y CONCIERGE VIP -->
-    <section id="beneficios" class="py-20 bg-slate-100">
+    <section id="beneficios" class="py-24 bg-slate-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div>
                     <span class="text-brand-accent font-extrabold text-xs uppercase tracking-widest bg-orange-100 px-3 py-1 rounded-full">Atención Personalizada 1 a 1</span>
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-blue mt-3 leading-tight">
-                        No somos un robot. Habla con un <span class="text-brand-accent">Agente Real</span> por WhatsApp
-                    </h2>
-                    <p class="text-slate-600 text-base mt-4 leading-relaxed">
-                        A diferencia de las webs automatizadas, en <strong>Iberomundo Viajes</strong> te asignamos un agente especialista en rutas transatlánticas para garantizar que tu viaje familiar o personal salga perfecto.
+                    <h2 class="text-3xl sm:text-4xl font-black text-brand-blue mt-3">Agentes Reales, Cero Contestadores Automáticos</h2>
+                    <p class="text-slate-600 text-base sm:text-lg mt-3 leading-relaxed">
+                        Entendemos la importancia de tu viaje. Por eso, desde el primer mensaje hasta que pisas tu destino, tendrás un asesor personal asignado para apoyarte con maletas, cambios e itinerarios.
                     </p>
-
-                    <div class="space-y-4 mt-6">
-                        <div class="flex items-start space-x-3">
-                            <div class="w-8 h-8 rounded-lg bg-emerald-100 text-brand-whatsapp flex items-center justify-center shrink-0 mt-1">
-                                <i class="fa-solid fa-suitcase"></i>
-                            </div>
+                    <div class="mt-8 space-y-4">
+                        <div class="flex items-start space-x-3 bg-white p-4 rounded-2xl shadow-sm border border-slate-200/60">
+                            <i class="fa-solid fa-check-circle text-brand-accent text-xl mt-1"></i>
                             <div>
-                                <h4 class="font-bold text-slate-800">Franquicia de Equipaje Incluida y Revisada</h4>
-                                <p class="text-xs text-slate-600">Te asesoramos exactamente cuántas maletas de 23kg o 10kg incluye tu boleto para evitar cobros sorpresa en el aeropuerto.</p>
+                                <h4 class="font-bold text-slate-800">Búsqueda Manual de Tarifas Especiales</h4>
+                                <p class="text-sm text-slate-600">Revisamos múltiples consolidadoras para conseguir equipaje incluido y mejores escalas.</p>
                             </div>
                         </div>
-
-                        <div class="flex items-start space-x-3">
-                            <div class="w-8 h-8 rounded-lg bg-blue-100 text-brand-navy flex items-center justify-center shrink-0 mt-1">
-                                <i class="fa-solid fa-chair"></i>
-                            </div>
+                        <div class="flex items-start space-x-3 bg-white p-4 rounded-2xl shadow-sm border border-slate-200/60">
+                            <i class="fa-solid fa-check-circle text-brand-accent text-xl mt-1"></i>
                             <div>
-                                <h4 class="font-bold text-slate-800">Asignación de Asientos y Familias Juntas</h4>
-                                <p class="text-xs text-slate-600">Hacemos las gestiones de check-in para asegurar que viajes al lado de tus hijos o familiares.</p>
+                                <h4 class="font-bold text-slate-800">Soporte Durante Todo el Viaje</h4>
+                                <p class="text-sm text-slate-600">Resolución rápida ante cualquier imprevisto de la aerolínea o cambio de fechas.</p>
                             </div>
                         </div>
-
-                        <div class="flex items-start space-x-3">
-                            <div class="w-8 h-8 rounded-lg bg-orange-100 text-brand-accent flex items-center justify-center shrink-0 mt-1">
-                                <i class="fa-solid fa-passport"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-slate-800">Verificación de Requisitos de Viaje</h4>
-                                <p class="text-xs text-slate-600">Comprobamos pasaportes, visados, permisos de menores y requisitos sanitarios según tu país de destino.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mt-8">
-                        <a href="https://wa.me/34697797858?text=Hola,%20deseo%20hablar%20con%20un%20agente%20humano%20para%20asesoría%20personalizada" target="_blank" 
-                           class="inline-flex items-center space-x-3 bg-brand-whatsapp hover:bg-emerald-600 text-white font-bold py-3.5 px-8 rounded-xl shadow-lg transition">
-                            <i class="fa-brands fa-whatsapp text-2xl"></i>
-                            <span>Chatear con un Agente Ahora</span>
-                        </a>
                     </div>
                 </div>
-
-                <div class="relative">
-                    <div class="bg-gradient-to-tr from-brand-blue to-brand-navy rounded-3xl p-8 text-white shadow-2xl relative z-10">
-                        <div class="flex items-center space-x-4 mb-6">
-                            <div class="w-14 h-14 rounded-full bg-slate-200 border-2 border-brand-accent overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200&auto=format&fit=crop" alt="Agente de Iberomundo Viajes" class="w-full h-full object-cover">
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-lg">Asesoría Iberomundo</h4>
-                                <span class="text-emerald-400 text-xs font-semibold flex items-center gap-1">
-                                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Agentes Disponibles en Línea
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="space-y-3 text-xs sm:text-sm">
-                            <div class="bg-white/10 p-3 rounded-2xl rounded-tl-none max-w-[85%]">
-                                👋 ¡Hola! Soy tu asesor especializado en Iberomundo Viajes. ¿A qué ciudad de Latinoamérica deseas volar?
-                            </div>
-                            <div class="bg-brand-accent/30 border border-brand-accent/40 p-3 rounded-2xl rounded-tr-none ml-auto max-w-[85%]">
-                                Hola, busco billetes para 2 adultos y 1 niño a Bogotá para viajar en diciembre. ¿Puedo pagar con Fliinow?
-                            </div>
-                            <div class="bg-white/10 p-3 rounded-2xl rounded-tl-none max-w-[85%]">
-                                ¡Por supuesto! Podemos diferirlo con **Fliinow** en 3, 6, 9 o 12 cuotas, o congelarlo con la cuota inicial de la oferta. Te comparto las mejores opciones en 2 minutos...
-                            </div>
-                        </div>
-
-                        <div class="mt-6 pt-4 border-t border-white/10 text-center">
-                            <span class="text-xs text-slate-300"><i class="fa-solid fa-lock mr-1"></i> Comunicación directas por WhatsApp Oficial</span>
-                        </div>
+                <div class="bg-white p-8 sm:p-10 rounded-3xl shadow-xl border border-slate-200 text-center relative overflow-hidden">
+                    <div class="w-16 h-16 bg-brand-whatsapp/10 text-brand-whatsapp rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">
+                        <i class="fa-brands fa-whatsapp"></i>
                     </div>
-                    <!-- Decoración de fondo -->
-                    <div class="absolute -top-4 -right-4 w-full h-full bg-brand-accent/20 rounded-3xl -z-0"></div>
+                    <h3 class="text-2xl font-black text-brand-blue">¿Tienes dudas o quieres cotizar ya?</h3>
+                    <p class="text-slate-600 text-sm mt-2 mb-6">Habla directamente con un asesor especialista en vuelos desde Estados Unidos.</p>
+                    <a href="https://wa.me/17324334659?text=Hola,%20quiero%20hablar%20con%20un%20agente%20para%20cotizar" target="_blank" 
+                       class="bg-brand-whatsapp hover:bg-emerald-600 text-white font-extrabold py-4 px-8 rounded-2xl transition inline-block shadow-lg shadow-emerald-500/20 transform hover:-translate-y-0.5">
+                        Iniciar Chat por WhatsApp (+1 732 433 4659)
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- TESTIMONIOS -->
-    <section class="py-16 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-2xl mx-auto mb-12">
-                <span class="text-brand-accent font-extrabold text-xs uppercase tracking-widest">Opiniones Reales</span>
-                <h2 class="text-3xl font-black text-brand-blue mt-2">Lo que dicen nuestros viajeros</h2>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 flex flex-col justify-between">
-                    <p class="text-slate-600 text-sm italic mb-4">
-                        "Pude viajar a Cali a ver a mi madre después de 3 años. Financie mis pasajes con **Fliinow** en 6 meses y todo fue transparente y rápido por WhatsApp."
-                    </p>
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 rounded-full bg-brand-blue text-white flex items-center justify-center font-bold text-sm">MC</div>
-                        <div>
-                            <h4 class="font-bold text-slate-800 text-sm">María Carmen G.</h4>
-                            <span class="text-xs text-slate-400">Vuelo Madrid - Cali</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 flex flex-col justify-between">
-                    <p class="text-slate-600 text-sm italic mb-4">
-                        "En otras páginas me cobraban fortunas por la maleta extra. En Iberomundo me atendió un agente real que me incluyó todo y pagué la cuota inicial para congelar el precio."
-                    </p>
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 rounded-full bg-brand-accent text-white flex items-center justify-center font-bold text-sm">JR</div>
-                        <div>
-                            <h4 class="font-bold text-slate-800 text-sm">Javier Rodríguez</h4>
-                            <span class="text-xs text-slate-400">Vuelo Barcelona - Quito</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 flex flex-col justify-between">
-                    <p class="text-slate-600 text-sm italic mb-4">
-                        "Excelente servicio. Viajamos 4 personas a Lima. Nos ayudaron a elegir asientos juntos y nos explicaron los términos de pago paso a paso."
-                    </p>
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 rounded-full bg-brand-navy text-white flex items-center justify-center font-bold text-sm">LP</div>
-                        <div>
-                            <h4 class="font-bold text-slate-800 text-sm">Luisa Paredes</h4>
-                            <span class="text-xs text-slate-400">Vuelo Madrid - Lima</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- PREGUNTAS FRECUENTES (FAQ ACCORDION) -->
-    <section id="faq" class="py-20 bg-slate-50">
+    <!-- SECCIÓN FAQ / PREGUNTAS FRECUENTES (DESPLEGABLES ACORDEÓN) -->
+    <section id="faq" class="py-24 bg-white">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <span class="text-brand-accent font-extrabold text-xs uppercase tracking-widest">Resuelve tus Dudas</span>
-                <h2 class="text-3xl font-black text-brand-blue mt-2">Preguntas Frecuentes</h2>
+            <div class="text-center mb-16">
+                <span class="text-brand-accent font-black text-xs uppercase tracking-widest bg-orange-50 border border-orange-200 px-4 py-1.5 rounded-full">Resuelve tus Dudas</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-brand-blue mt-4">Preguntas Frecuentes</h2>
+                <p class="text-slate-600 text-base sm:text-lg mt-2">Todo lo que necesitas saber para reservar con total seguridad.</p>
             </div>
 
             <div class="space-y-4">
                 <!-- FAQ 1 -->
-                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-                    <button onclick="toggleFaq(1)" class="w-full p-5 text-left font-bold text-brand-blue flex justify-between items-center focus:outline-none">
-                        <span>¿Cómo funciona la financiación con Fliinow?</span>
-                        <i id="faq-icon-1" class="fa-solid fa-chevron-down text-brand-accent transition-transform"></i>
+                <div class="border border-slate-200 rounded-2xl overflow-hidden shadow-sm bg-slate-50 transition">
+                    <button onclick="toggleFaq(1)" class="w-full text-left p-5 font-bold text-slate-800 flex justify-between items-center focus:outline-none">
+                        <span>¿Cómo funciona el pago de cuotas o la financiación?</span>
+                        <i id="faq-icon-1" class="fa-solid fa-chevron-down text-brand-accent transition-transform duration-300"></i>
                     </button>
-                    <div id="faq-answer-1" class="hidden p-5 pt-0 text-sm text-slate-600 border-t border-slate-100">
-                        Puedes pagar tus billetes en 3, 6, 9 o 12 meses. El proceso de solicitud se realiza en solo 5 minutos mediante un enlace seguro con la financiera <strong>Fliinow</strong>. La aprobación está sujeta a la evaluación crediticia de la entidad.
+                    <div id="faq-content-1" class="accordion-content px-5 pb-5 text-sm text-slate-600 leading-relaxed">
+                        Puedes cotizar tu pasaje y solicitar la financiación directa en 3, 6, 9 o 12 meses. También puedes congelar tu tarifa pagando una **Cuota Inicial acorde a la oferta** y terminar de liquidar tu billete antes de la fecha de vuelo.
                     </div>
                 </div>
 
                 <!-- FAQ 2 -->
-                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-                    <button onclick="toggleFaq(2)" class="w-full p-5 text-left font-bold text-brand-blue flex justify-between items-center focus:outline-none">
-                        <span>¿En qué consiste la Cuota Inicial acorde a la oferta?</span>
-                        <i id="faq-icon-2" class="fa-solid fa-chevron-down text-brand-accent transition-transform"></i>
+                <div class="border border-slate-200 rounded-2xl overflow-hidden shadow-sm bg-slate-50 transition">
+                    <button onclick="toggleFaq(2)" class="w-full text-left p-5 font-bold text-slate-800 flex justify-between items-center focus:outline-none">
+                        <span>¿Desde qué ciudades de Estados Unidos puedo volar?</span>
+                        <i id="faq-icon-2" class="fa-solid fa-chevron-down text-brand-accent transition-transform duration-300"></i>
                     </button>
-                    <div id="faq-answer-2" class="hidden p-5 pt-0 text-sm text-slate-600 border-t border-slate-100">
-                        Si prefieres no contratar una financiación, puedes apartado tu billete pagando una cuota inicial estipulada según las reglas específicas de la tarifa seleccionada. Esto congela el precio del vuelo y te permite pagar la diferencia restante en cuotas libres antes del viaje.
+                    <div id="faq-content-2" class="accordion-content px-5 pb-5 text-sm text-slate-600 leading-relaxed">
+                        Gestionamos vuelos saliendo desde cualquier aeropuerto de Estados Unidos (Miami, Nueva York, Orlando, Houston, Los Ángeles, etc.) hacia todos los destinos de Latinoamérica (Colombia, Ecuador, Perú, Bolivia, República Dominicana, Argentina, etc.).
                     </div>
                 </div>
 
                 <!-- FAQ 3 -->
-                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-                    <button onclick="toggleFaq(3)" class="w-full p-5 text-left font-bold text-brand-blue flex justify-between items-center focus:outline-none">
-                        <span>¿Los billetes incluyen equipaje facturado?</span>
-                        <i id="faq-icon-3" class="fa-solid fa-chevron-down text-brand-accent transition-transform"></i>
+                <div class="border border-slate-200 rounded-2xl overflow-hidden shadow-sm bg-slate-50 transition">
+                    <button onclick="toggleFaq(3)" class="w-full text-left p-5 font-bold text-slate-800 flex justify-between items-center focus:outline-none">
+                        <span>¿Los pasajes incluyen maleta en bodega?</span>
+                        <i id="faq-icon-3" class="fa-solid fa-chevron-down text-brand-accent transition-transform duration-300"></i>
                     </button>
-                    <div id="faq-answer-3" class="hidden p-5 pt-0 text-sm text-slate-600 border-t border-slate-100">
-                        Nuestros agentes comerciales siempre te informarán sobre las condiciones exactas de equipaje (mano y maleta de 23kg facturada). Podemos incluir las maletas que necesites dentro de la cotización final.
+                    <div id="faq-content-3" class="accordion-content px-5 pb-5 text-sm text-slate-600 leading-relaxed">
+                        Nuestros agentes siempre buscan y recomiendan las tarifas que mejor incluyan equipaje de mano y maletas en bodega según tus necesidades familiares. Te detallamos todo con claridad antes de emitir tu boleto.
                     </div>
                 </div>
 
                 <!-- FAQ 4 -->
-                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-                    <button onclick="toggleFaq(4)" class="w-full p-5 text-left font-bold text-brand-blue flex justify-between items-center focus:outline-none">
-                        <span>¿Cómo me entregan los billetes de avión?</span>
-                        <i id="faq-icon-4" class="fa-solid fa-chevron-down text-brand-accent transition-transform"></i>
+                <div class="border border-slate-200 rounded-2xl overflow-hidden shadow-sm bg-slate-50 transition">
+                    <button onclick="toggleFaq(4)" class="w-full text-left p-5 font-bold text-slate-800 flex justify-between items-center focus:outline-none">
+                        <span>¿Es una agencia 100% legal y oficial?</span>
+                        <i id="faq-icon-4" class="fa-solid fa-chevron-down text-brand-accent transition-transform duration-300"></i>
                     </button>
-                    <div id="faq-answer-4" class="hidden p-5 pt-0 text-sm text-slate-600 border-t border-slate-100">
-                        Una vez confirmada la reserva o la aprobación con Fliinow, tu agente te enviará los billetes electrónicos oficiales directamente a tu correo electrónico y por PDF en WhatsApp.
+                    <div id="faq-content-4" class="accordion-content px-5 pb-5 text-sm text-slate-600 leading-relaxed">
+                        Sí, Iberomundo Viajes emite billetes directos en los sistemas de reserva oficiales de las principales aerolíneas mundiales. Recibirás tu código PNR de confirmación inmediatamente tras formalizar la reserva.
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- BANNER DE CONTACTO FINAL -->
-    <section class="bg-gradient-to-r from-brand-blue via-brand-navy to-slate-900 py-16 text-white text-center px-4">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="text-3xl sm:text-4xl font-extrabold mb-4">¿Listo para volar a tu destino?</h2>
-            <p class="text-slate-300 text-base sm:text-lg mb-8 max-w-2xl mx-auto">
-                Consulta con nuestros agentes sin compromiso. Te ayudaremos a encontrar la mejor tarifa y el plan de pago que mejor se adapte a ti.
-            </p>
-            <a href="https://wa.me/34697797858?text=Hola%20Iberomundo%20Viajes,%20deseo%20cotizar%20un%20vuelo%20con%20un%20agente" target="_blank"
-               class="inline-flex items-center space-x-3 bg-brand-whatsapp hover:bg-emerald-600 text-white font-extrabold text-lg py-4 px-10 rounded-2xl shadow-2xl hover:scale-105 transition-all">
-                <i class="fa-brands fa-whatsapp text-2xl"></i>
-                <span>SOLICITAR COTIZACIÓN POR WHATSAPP</span>
-            </a>
-        </div>
-    </section>
-
-    <!-- FOOTER CORPORATIVO -->
-    <footer class="bg-slate-950 text-slate-400 py-12 border-t border-slate-800 text-xs sm:text-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
-                <!-- COLUMNA LOGO -->
-                <div class="space-y-4">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 bg-brand-blue rounded-xl flex items-center justify-center p-2">
-                            <svg class="w-full h-full text-white" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="50" cy="50" r="42" stroke="currentColor" stroke-width="5" opacity="0.3"/>
-                                <ellipse cx="50" cy="50" rx="42" ry="18" stroke="currentColor" stroke-width="4" opacity="0.4"/>
-                                <path d="M 12,65 A 45,35 0 0,1 88,35" stroke="#F97316" stroke-width="5" fill="none"/>
-                                <path d="M 82,30 L 92,26 L 87,36 Z" fill="#F97316"/>
-                            </svg>
-                        </div>
-                        <span class="text-xl font-black text-white tracking-wider">IBEROMUNDO VIAJES</span>
-                    </div>
-                    <p class="text-slate-400">
-                        Agencia de viajes especialista en vuelos entre España y Latinoamérica con atención personalizada y financiación flexible.
-                    </p>
-                </div>
-
-                <!-- DESTINOS PRINCIPALES -->
-                <div>
-                    <h4 class="text-white font-bold uppercase tracking-wider mb-4 text-xs">Rutas Destacadas</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#buscador" class="hover:text-white transition">Vuelos a Colombia (Bogotá, Cali, Medellín)</a></li>
-                        <li><a href="#buscador" class="hover:text-white transition">Vuelos a Ecuador (Quito, Guayaquil)</a></li>
-                        <li><a href="#buscador" class="hover:text-white transition">Vuelos a Perú (Lima)</a></li>
-                        <li><a href="#buscador" class="hover:text-white transition">Vuelos a Bolivia (Santa Cruz, La Paz)</a></li>
-                    </ul>
-                </div>
-
-                <!-- FORMAS DE PAGO -->
-                <div>
-                    <h4 class="text-white font-bold uppercase tracking-wider mb-4 text-xs">Opciones de Pago</h4>
-                    <ul class="space-y-2">
-                        <li>Financiación en 3, 6, 9 o 12 meses con <strong>Fliinow</strong></li>
-                        <li>Pago Inicial / Cuota Inicial acorde a la oferta</li>
-                        <li>Pago por Transferencia Bancaria o Tarjeta</li>
-                        <li>*Aprobación crediticia sujeta a la financiera Fliinow</li>
-                    </ul>
-                </div>
-
-                <!-- DATOS DE CONTACTO OFICIALES -->
-                <div>
-                    <h4 class="text-white font-bold uppercase tracking-wider mb-4 text-xs">Contacto Oficial</h4>
-                    <ul class="space-y-3">
-                        <li class="flex items-start space-x-2">
-                            <i class="fa-solid fa-location-dot text-brand-accent mt-1"></i>
-                            <span>Calle Imagen 3, 28018 Madrid, España</span>
-                        </li>
-                        <li class="flex items-center space-x-2">
-                            <i class="fa-brands fa-whatsapp text-brand-whatsapp text-base"></i>
-                            <a href="https://wa.me/34697797858" target="_blank" class="hover:text-white font-bold">+34 697 79 78 58</a>
-                        </li>
-                        <li class="flex items-center space-x-2">
-                            <i class="fa-solid fa-globe text-brand-accent"></i>
-                            <a href="https://www.iberomundoviajes.com" class="hover:text-white">www.iberomundoviajes.com</a>
-                        </li>
-                    </ul>
-                </div>
+    <!-- FOOTER COMPLETO -->
+    <footer class="bg-slate-950 text-slate-400 py-14 px-4 border-t border-slate-900">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-left">
+            <div>
+                <span class="text-xl font-black text-white tracking-tight">IBEROMUNDO <span class="text-brand-accent">USA</span></span>
+                <p class="text-xs text-slate-400 mt-3 leading-relaxed">Tu agencia de confianza especializada en conectar la diáspora latina en Estados Unidos con sus países de origen.</p>
             </div>
-
-            <div class="pt-8 border-t border-slate-800 text-center text-xs text-slate-500">
-                <p>© <span id="currentYear"></span> Iberomundo Viajes. Todos los derechos reservados. Calle Imagen 3, 28018 Madrid, España.</p>
+            <div>
+                <h4 class="font-bold text-white text-sm mb-3 uppercase tracking-wider">Contacto Directo</h4>
+                <p class="text-xs text-slate-300 font-medium">WhatsApp: +1 (732) 433-4659</p>
+                <p class="text-xs text-slate-300 font-medium mt-1.5">Email: iberomundoviajesusa@gmail.com</p>
+            </div>
+            <div>
+                <h4 class="font-bold text-white text-sm mb-3 uppercase tracking-wider">Oficina Principal</h4>
+                <p class="text-xs text-slate-300 font-medium">Miami, FL 33130, USA</p>
+                <p class="text-xs text-slate-600 mt-6">&copy; 2026 Iberomundo Viajes USA. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
 
-    <!-- MODAL DE CONFIRMACIÓN DE BÚSQUEDA Y REDIRECCIÓN A WHATSAPP -->
-    <div id="searchModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative animate-fade-in">
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-xl font-bold">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-
-            <div class="text-center">
-                <div class="w-16 h-16 bg-emerald-100 text-brand-whatsapp rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">
-                    <i class="fa-brands fa-whatsapp"></i>
-                </div>
-                <h3 class="text-2xl font-black text-brand-blue mb-2">¡Solicitud de Vuelo Lista!</h3>
-                <p class="text-slate-600 text-sm mb-6">
-                    Hemos preparado los detalles de tu búsqueda para enviártelos a un agente de Iberomundo Viajes en WhatsApp.
-                </p>
-
-                <!-- RESUMEN DE BÚSQUEDA -->
-                <div class="bg-slate-50 p-4 rounded-2xl text-left border border-slate-200 space-y-2 text-xs sm:text-sm mb-6">
-                    <div class="flex justify-between">
-                        <span class="text-slate-500 font-medium">Origen:</span>
-                        <span id="modalOrigin" class="font-bold text-slate-800"></span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span class="text-slate-500 font-medium">Destino:</span>
-                        <span id="modalDestination" class="font-bold text-slate-800"></span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span class="text-slate-500 font-medium">Fecha Ida:</span>
-                        <span id="modalDepart" class="font-bold text-slate-800"></span>
-                    </div>
-                    <div id="modalReturnRow" class="flex justify-between">
-                        <span class="text-slate-500 font-medium">Fecha Vuelta:</span>
-                        <span id="modalReturn" class="font-bold text-slate-800"></span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span class="text-slate-500 font-medium">Pasajeros:</span>
-                        <span id="modalPassengers" class="font-bold text-slate-800"></span>
-                    </div>
-                    <div class="flex justify-between border-t border-slate-200 pt-2 mt-2">
-                        <span class="text-slate-500 font-medium">Preferencia de Pago:</span>
-                        <span id="modalPayment" class="font-bold text-brand-accent"></span>
-                    </div>
-                </div>
-
-                <a id="modalWhatsappBtn" href="#" target="_blank" 
-                   class="w-full bg-brand-whatsapp hover:bg-emerald-600 text-white font-extrabold text-base py-4 px-6 rounded-xl shadow-xl transition flex items-center justify-center space-x-2">
-                    <i class="fa-brands fa-whatsapp text-2xl"></i>
-                    <span>CONTINUAR A WHATSAPP CON MI AGENTE</span>
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- SCRIPTS INTERACTIVOS -->
+    <!-- LÓGICA JAVASCRIPT: SIMULADOR, BÚSQUEDA Y ACORDEÓN -->
     <script>
-        // Año dinámico en footer
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        let selectedMonths = 3;
 
-        // Control de tipo de vuelo (Ida y vuelta vs Solo ida)
         function toggleTripType(type) {
-            const returnContainer = document.getElementById('returnDateContainer');
+            const container = document.getElementById('returnDateContainer');
             const returnInput = document.getElementById('returnDate');
-            
             if (type === 'oneway') {
-                returnContainer.style.opacity = '0.4';
-                returnInput.disabled = true;
+                container.style.opacity = '0.4';
                 returnInput.required = false;
+                returnInput.disabled = true;
             } else {
-                returnContainer.style.opacity = '1';
-                returnInput.disabled = false;
+                container.style.opacity = '1';
                 returnInput.required = true;
+                returnInput.disabled = false;
             }
         }
-
-        // Calculadora estimativa Fliinow
-        let selectedMonths = 3;
 
         function setMonths(months) {
             selectedMonths = months;
             document.querySelectorAll('.month-btn').forEach(btn => {
-                btn.classList.remove('bg-brand-accent', 'text-white', 'border-brand-accent');
+                btn.classList.remove('bg-brand-accent', 'text-white', 'border-brand-accent', 'shadow-sm');
                 btn.classList.add('bg-slate-800', 'text-slate-300');
             });
-            
             const activeBtn = document.getElementById(`btn-${months}`);
-            if (activeBtn) {
-                activeBtn.classList.remove('bg-slate-800', 'text-slate-300');
-                activeBtn.classList.add('bg-brand-accent', 'text-white', 'border-brand-accent');
-            }
+            activeBtn.classList.add('bg-brand-accent', 'text-white', 'border-brand-accent', 'shadow-sm');
+            activeBtn.classList.remove('bg-slate-800', 'text-slate-300');
             updateCalculator();
         }
 
         function updateCalculator() {
-            const amount = parseInt(document.getElementById('amountRange').value);
-            document.getElementById('amountDisplay').textContent = `${amount.toLocaleString()} €`;
-            
-            // Estimación simple con factor financiero para ilustración de cuota Fliinow
-            const factor = 1 + (selectedMonths * 0.015);
-            const monthly = Math.round((amount * factor) / selectedMonths);
-            
-            document.getElementById('monthlyEstimate').innerHTML = `${monthly} €<span class="text-xs text-slate-400 font-normal">/mes</span>`;
-            document.getElementById('calcMonths').textContent = selectedMonths;
-
-            const waMsg = `Hola Iberomundo Viajes, usé el simulador para un vuelo de ${amount}€ en ${selectedMonths} meses con Fliinow. Quisiera consultar disponibilidad.`;
-            document.getElementById('calcWhatsappLink').href = `https://wa.me/34697797858?text=${encodeURIComponent(waMsg)}`;
+            const amount = document.getElementById('amountRange').value;
+            document.getElementById('amountDisplay').innerText = `$${amount} USD`;
+            const monthly = Math.round(amount / selectedMonths);
+            document.getElementById('monthlyEstimate').innerHTML = `$${monthly}<span class="text-sm text-brand-accent font-bold"> USD/mes</span>`;
+            document.getElementById('calcMonths').innerText = selectedMonths;
+            const waText = encodeURIComponent(`Hola, he calculado un vuelo de $${amount} USD a diferir en ${selectedMonths} meses ($${monthly} USD/mes)`);
+            document.getElementById('calcWhatsappLink').href = `https://wa.me/17324334659?text=${waText}`;
         }
 
-        // Manejo del formulario de búsqueda de vuelos
-        function handleFlightSearch(e) {
-            e.preventDefault();
-            
+        function handleFlightSearch(event) {
+            event.preventDefault();
             const origin = document.getElementById('origin').value;
             const destination = document.getElementById('destination').value;
             const departDate = document.getElementById('departDate').value;
-            const tripType = document.querySelector('input[name="tripType"]:checked').value;
-            const returnDate = tripType === 'roundtrip' ? document.getElementById('returnDate').value : 'Solo ida';
+            const returnDate = document.getElementById('returnDate').value;
             const passengers = document.getElementById('passengers').value;
             const paymentPref = document.getElementById('paymentPref').value;
 
-            // Llenar Modal
-            document.getElementById('modalOrigin').textContent = origin;
-            document.getElementById('modalDestination').textContent = destination;
-            document.getElementById('modalDepart').textContent = departDate;
-            document.getElementById('modalPassengers').textContent = passengers;
-            document.getElementById('modalPayment').textContent = paymentPref;
-
-            const modalReturnRow = document.getElementById('modalReturnRow');
-            if (tripType === 'oneway') {
-                modalReturnRow.style.display = 'none';
-            } else {
-                modalReturnRow.style.display = 'flex';
-                document.getElementById('modalReturn').textContent = returnDate;
-            }
-
-            // Crear mensaje para WhatsApp
-            let message = `Hola Iberomundo Viajes, deseo cotizar un vuelo con las siguientes especificaciones:\n\n`;
-            message += `✈️ *Origen:* ${origin}\n`;
-            message += `🛬 *Destino:* ${destination}\n`;
-            message += `📅 *Fecha de Ida:* ${departDate}\n`;
-            if (tripType === 'roundtrip') {
-                message += `🔄 *Fecha de Vuelta:* ${returnDate}\n`;
-            } else {
-                message += `➡️ *Tipo de Viaje:* Solo ida\n`;
-            }
-            message += `👥 *Pasajeros:* ${passengers}\n`;
-            message += `💳 *Modalidad de Pago:* ${paymentPref}\n\n`;
-            message += `Por favor, asígnenme un agente comercial para ver ofertas disponibles.`;
-
-            const waUrl = `https://wa.me/34697797858?text=${encodeURIComponent(message)}`;
-            document.getElementById('modalWhatsappBtn').href = waUrl;
-
-            // Abrir Modal
-            document.getElementById('searchModal').classList.remove('hidden');
+            const text = `Hola Iberomundo Viajes USA, quiero cotizar un vuelo:\n\n✈️ Origen: ${origin}\n🛬 Destino: ${destination}\n📅 Salida: ${departDate}\n📅 Regreso: ${returnDate || 'Solo ida'}\n👥 Pasajeros: ${passengers}\n💳 Modo de Pago: ${paymentPref}`;
+            window.open(`https://wa.me/17324334659?text=${encodeURIComponent(text)}`, '_blank');
         }
 
-        function closeModal() {
-            document.getElementById('searchModal').classList.add('hidden');
-        }
-
-        // Toggle para FAQ Accordion
-        function toggleFaq(id) {
-            const answer = document.getElementById(`faq-answer-${id}`);
-            const icon = document.getElementById(`faq-icon-${id}`);
+        function toggleFaq(index) {
+            const content = document.getElementById(`faq-content-${index}`);
+            const icon = document.getElementById(`faq-icon-${index}`);
+            const isActive = content.classList.contains('active');
             
-            if (answer.classList.contains('hidden')) {
-                answer.classList.remove('hidden');
-                icon.style.transform = 'rotate(180deg)';
-            } else {
-                answer.classList.add('hidden');
-                icon.style.transform = 'rotate(0deg)';
+            // Cerrar todos los demás
+            document.querySelectorAll('.accordion-content').forEach(item => item.classList.remove('active'));
+            document.querySelectorAll('[id^="faq-icon-"]').forEach(ic => ic.classList.remove('rotate-180'));
+
+            if (!isActive) {
+                content.classList.add('active');
+                icon.classList.add('rotate-180');
             }
         }
-
-        // Inicialización de fecha mínima
-        window.addEventListener('DOMContentLoaded', () => {
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('departDate').min = today;
-            document.getElementById('returnDate').min = today;
-        });
     </script>
 </body>
 </html>
+```
